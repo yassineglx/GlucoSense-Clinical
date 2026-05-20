@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  assessments Assessment[]
+}
+
+model Assessment {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Inputs
+  pregnancies            Float
+  glucose                Float
+  bloodPressure          Float
+  skinThickness          Float
+  insulin                Float
+  bmi                    Float
+  diabetesPedigreeFunction Float
+  age                    Float
+
+  // Results
+  prediction             Int
+  probability            Float
+  riskLevel              String
+  explanation            String
+  
+  createdAt DateTime @default(now())
+}

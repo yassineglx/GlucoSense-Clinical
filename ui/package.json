@@ -9,12 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.3",
+    "@prisma/adapter-libsql": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "bcryptjs": "^3.0.3",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.2.10",
+    "lucide-react": "^1.14.0",
     "next": "14.2.3",
+    "next-auth": "^4.24.14",
     "react": "^18",
     "react-dom": "^18",
-    "framer-motion": "^11.2.10"
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -22,6 +31,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "prisma": "^7.8.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

@@ -1,8 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import type { DiabetesFormInput, ApiResponse } from "@/app/types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/db";
 
 export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>> {
   try {
+    const session = await getServerSession(authOptions);
+
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized access" },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json() as DiabetesFormInput;
     
     // Call FastAPI backend
@@ -72,6 +84,30 @@ export async function POST(req: NextRequest): Promise<NextResponse<ApiResponse>>
       explanation,
       recommendations
     };
+
+    // Save to database
+    // @ts-ignore
+    const userId = session.user?.id as string;
+    
+    if (userId) {
+      await prisma.assessment.create({
+        data: {
+          userId,
+          pregnancies: body.Pregnancies,
+          glucose: body.Glucose,
+          bloodPressure: body.BloodPressure,
+          skinThickness: body.SkinThickness,
+          insulin: body.Insulin,
+          bmi: body.BMI,
+          diabetesPedigreeFunction: body.DiabetesPedigreeFunction,
+          age: body.Age,
+          prediction: result.prediction,
+          probability: result.probability,
+          riskLevel: result.riskLevel,
+          explanation: result.explanation,
+        }
+      });
+    }
 
     return NextResponse.json({ success: true, data: result }, { status: 200 });
   } catch (err) {
