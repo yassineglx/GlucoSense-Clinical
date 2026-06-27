@@ -19,6 +19,24 @@ model User {
   updatedAt DateTime @updatedAt
   
   assessments Assessment[]
+  dailyLogs   DailyLog[]
+}
+
+model DailyLog {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  date          DateTime @default(now())
+  
+  // Optional daily metrics
+  glucose       Float?
+  bloodPressure Float?
+  weight        Float?
+  notes         String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Assessment {

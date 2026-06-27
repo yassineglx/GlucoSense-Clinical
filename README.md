@@ -24,7 +24,7 @@ The solution focuses on interpretability and clinical relevance, providing not j
 
 1. **Frontend (`ui/`)**: A React application built with **Next.js** and styled with Tailwind CSS. It provides the interactive dashboard, form validation, BMI calculator, and risk visualization.
 2. **Backend (`api/main.py`)**: A **FastAPI** service that exposes a REST endpoint (`/predict`). It receives patient data, formats it into a Pandas DataFrame, and passes it to the ML model.
-3. **Machine Learning (`train_lgbm.py`)**: A Python pipeline using `scikit-learn` and `lightgbm` to impute missing values, scale features, and train the classifier, exporting the result to `api/clinical_diabetes_pipeline.pkl` and `api/feature_names.pkl`.
+3. **Machine Learning (`train_rf.py`)**: A Python pipeline using `scikit-learn` to impute missing values, scale features, and train a Random Forest classifier, exporting the result to `api/clinical_diabetes_rf_pipeline.pkl` and `api/feature_names.pkl`.
 
 ## Installation & Setup
 

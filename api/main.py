@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-pipeline = joblib.load(os.path.join(os.path.dirname(__file__), 'clinical_diabetes_pipeline.pkl'))
+pipeline = joblib.load(os.path.join(os.path.dirname(__file__), 'clinical_diabetes_rf_pipeline.pkl'))
 feature_names = joblib.load(os.path.join(os.path.dirname(__file__), 'feature_names.pkl'))
 
 class PatientData(BaseModel):
